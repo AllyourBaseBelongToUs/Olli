@@ -1,0 +1,8 @@
+# Cursor editor files
+.cursor
+
+# Documentation
+CLI-Docs.md
+
+# VS Code configuration
+.vsconfig
