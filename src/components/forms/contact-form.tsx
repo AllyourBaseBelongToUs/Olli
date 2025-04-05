@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -5,15 +7,15 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Form, 
-  FormControl, 
-  FormField, 
-  FormItem, 
-  FormLabel, 
-  FormMessage 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
 } from "@/components/ui/form";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -64,7 +66,7 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     setFormStatus('idle');
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -73,12 +75,12 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
         },
         body: JSON.stringify(data),
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Something went wrong. Please try again.');
       }
-      
+
       setFormStatus('success');
       form.reset();
     } catch (error) {
@@ -100,7 +102,7 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
           </AlertDescription>
         </Alert>
       )}
-      
+
       {formStatus === 'error' && (
         <Alert className="bg-red-50 border-red-200">
           <AlertCircle className="h-4 w-4 text-red-600" />
@@ -110,7 +112,7 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
           </AlertDescription>
         </Alert>
       )}
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -127,7 +129,7 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="email"
@@ -141,7 +143,7 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="phone"
@@ -155,7 +157,7 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="company"
@@ -170,15 +172,15 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
               )}
             />
           </div>
-          
+
           <FormField
             control={form.control}
             name="service"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Service you're interested in*</FormLabel>
-                <Select 
-                  onValueChange={field.onChange} 
+                <Select
+                  onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -199,7 +201,7 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="message"
@@ -207,20 +209,20 @@ export function ContactForm({ defaultService, className }: ContactFormProps) {
               <FormItem>
                 <FormLabel>Message*</FormLabel>
                 <FormControl>
-                  <Textarea 
-                    placeholder="Tell us about your project or inquiry" 
-                    className="min-h-[120px]" 
-                    {...field} 
+                  <Textarea
+                    placeholder="Tell us about your project or inquiry"
+                    className="min-h-[120px]"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
-          <Button 
-            type="submit" 
-            className="w-full md:w-auto px-8" 
+
+          <Button
+            type="submit"
+            className="w-full md:w-auto px-8"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Sending..." : "Send Message"}
