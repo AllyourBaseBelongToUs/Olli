@@ -40,11 +40,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Add the submission to Supabase
+    // Add the submission to Supabase with IP and user agent
     console.log('Adding submission to Supabase');
     let submission;
     try {
-      submission = await addContactSubmission(result.data);
+      // Add IP address and user agent to the submission data
+      const submissionData = {
+        ...result.data,
+        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
+        user_agent: request.headers.get('user-agent') || 'unknown'
+      };
+
+      submission = await addContactSubmission(submissionData);
       console.log('Submission added successfully to Supabase:', submission);
     } catch (supabaseError) {
       console.error('Supabase error:', supabaseError);

@@ -17,6 +17,9 @@ export interface ContactSubmission {
   service: string;
   message: string;
   created_at?: string;
+  ip_address?: string;
+  user_agent?: string;
+  status?: string;
 }
 
 // Function to add a new contact submission
