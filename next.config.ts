@@ -4,7 +4,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   // Enable React Strict Mode for development
   reactStrictMode: true,
-  
+
   // Image optimization configuration
   images: {
     domains: ['nexusmarketing.com'],
@@ -12,10 +12,26 @@ const nextConfig: NextConfig = {
     // Disable image optimization in development for faster builds
     unoptimized: process.env.NODE_ENV === 'development',
   },
-  
+
+  // Add webpack configuration to work around CSP restrictions
+  webpack: (config, { dev, isServer }) => {
+    // Disable eval in development to avoid CSP issues with Kaspersky
+    if (dev && !isServer) {
+      config.optimization.minimize = true;
+
+      // Force using production-like settings for JavaScript
+      // This helps avoid the use of eval() which is blocked by CSP
+      config.mode = 'production';
+    }
+
+    return config;
+  },
+
+  // SWC minify is enabled by default in Next.js 15.1.4
+
   // Enable compression for better performance
   compress: true,
-  
+
   // Configure headers for better security and performance
   async headers() {
     return [
@@ -25,6 +41,14 @@ const nextConfig: NextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400',
+          },
+          {
+            // Add Content-Security-Policy header to allow 'unsafe-eval' for development
+            // This helps with Kaspersky antivirus restrictions
+            key: 'Content-Security-Policy',
+            value: process.env.NODE_ENV === 'development'
+              ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://gc.kis.v2.scr.kaspersky-labs.com ws://gc.kis.v2.scr.kaspersky-labs.com"
+              : "script-src 'self' 'unsafe-inline' http://gc.kis.v2.scr.kaspersky-labs.com ws://gc.kis.v2.scr.kaspersky-labs.com",
           },
         ],
       },
@@ -48,7 +72,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   // Configure redirects for SEO
   async redirects() {
     return [
