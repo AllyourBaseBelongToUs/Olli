@@ -131,3 +131,24 @@ This file documents all notable changes to the Nexus Marketing Website project. 
 ### Documentation
 - [✓] Updated CHANGELOG.md with detailed information about Edge Config setup and form handling implementation.
 
+
+## [0.1.8] - 2025-04-05 06:10
+
+### Added
+- [✓] Integrated Supabase database - Set up Supabase for storing form submissions.
+- [✓] Created contact_submissions table - Designed database schema for storing form data.
+- [✓] Implemented Row Level Security - Added security policies to protect form submission data.
+
+### Changed
+- [✓] Switched from Edge Config to Supabase - Updated form submission storage to use Supabase instead of Edge Config.
+- [✓] Enhanced API route - Modified the contact form API route to store submissions in Supabase.
+
+### Technical
+- [✓] Added Supabase client - Installed and configured @supabase/supabase-js package.
+- [✓] Created database utility functions - Implemented functions for adding and retrieving form submissions.
+- [✓] Updated environment variables - Added Supabase URL and API key to .env.local.
+
+### Documentation
+- [✓] Updated CHANGELOG.md with information about Supabase integration.
+- [✓] Created SQL setup script - Added supabase-setup.sql with table creation and security policies.
+

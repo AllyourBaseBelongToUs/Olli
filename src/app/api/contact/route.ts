@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addContactSubmission } from '@/lib/edge-config';
+import { addContactSubmission } from '@/lib/supabase';
 import { sendEmailNotification } from '@/lib/email';
 import { z } from 'zod';
 
@@ -40,15 +40,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Add the submission to Edge Config
-    console.log('Adding submission to Edge Config');
+    // Add the submission to Supabase
+    console.log('Adding submission to Supabase');
     let submission;
     try {
       submission = await addContactSubmission(result.data);
-      console.log('Submission added successfully:', submission);
-    } catch (edgeConfigError) {
-      console.error('Edge Config error:', edgeConfigError);
-      throw edgeConfigError;
+      console.log('Submission added successfully to Supabase:', submission);
+    } catch (supabaseError) {
+      console.error('Supabase error:', supabaseError);
+      throw supabaseError;
     }
 
     // Send email notification
@@ -68,9 +68,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: 'Form submitted successfully',
         submission,
-        note: process.env.NODE_ENV === 'production' ?
-          'Note: In the current implementation, form submissions are logged but not permanently stored. We are working on implementing the full storage solution.' :
-          undefined
+        stored: true
       },
       { status: 200 }
     );
