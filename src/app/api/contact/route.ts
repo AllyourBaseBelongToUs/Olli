@@ -17,13 +17,18 @@ const formSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('API route called');
+
     // Parse the request body
     const body = await request.json();
+    console.log('Request body:', body);
 
     // Validate the form data
     const result = formSchema.safeParse(body);
+    console.log('Validation result:', result.success);
 
     if (!result.success) {
+      console.log('Validation errors:', result.error.format());
       // Return validation errors
       return NextResponse.json(
         {
@@ -36,20 +41,28 @@ export async function POST(request: NextRequest) {
     }
 
     // Add the submission to Edge Config
-    const submission = await addContactSubmission(result.data);
-
-    // Log the submission for debugging
-    console.log('Form submission:', submission);
+    console.log('Adding submission to Edge Config');
+    let submission;
+    try {
+      submission = await addContactSubmission(result.data);
+      console.log('Submission added successfully:', submission);
+    } catch (edgeConfigError) {
+      console.error('Edge Config error:', edgeConfigError);
+      throw edgeConfigError;
+    }
 
     // Send email notification
+    console.log('Sending email notification');
     try {
       await sendEmailNotification(submission);
-    } catch (error) {
-      console.error('Error sending email notification:', error);
+      console.log('Email notification sent successfully');
+    } catch (emailError) {
+      console.error('Error sending email notification:', emailError);
       // Continue processing even if email fails
     }
 
     // Return success response
+    console.log('Returning success response');
     return NextResponse.json(
       {
         success: true,
@@ -59,13 +72,14 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error processing contact form submission:', error);
+    console.error('Detailed error:', error);
 
-    // Return error response
+    // Return error response with more details
     return NextResponse.json(
       {
         success: false,
-        message: 'An error occurred while processing your submission'
+        message: 'An error occurred while processing your submission',
+        error: error instanceof Error ? error.message : String(error)
       },
       { status: 500 }
     );

@@ -25,8 +25,15 @@ if (process.env.EDGE_CONFIG) {
     digest: async () => '',
     // Add custom methods for our mock implementation
     set: async (key: string, value: any) => {
-      mockStorage.set(key, value);
-      return value;
+      console.log('Mock Edge Config: setting', key, 'to', value);
+      try {
+        mockStorage.set(key, value);
+        console.log('Mock Edge Config: successfully set', key);
+        return value;
+      } catch (mockError) {
+        console.error('Mock Edge Config: error setting', key, mockError);
+        throw mockError;
+      }
     },
     delete: async (key: string) => {
       mockStorage.delete(key);
@@ -78,8 +85,17 @@ export async function addContactSubmission(submission: Omit<ContactSubmission, '
     // Add new submission to the list
     const updatedSubmissions = [...submissions, newSubmission];
 
+    console.log('Current submissions:', submissions);
+    console.log('Updated submissions:', updatedSubmissions);
+
     // Update Edge Config
-    await edgeConfig.set('contactSubmissions', updatedSubmissions);
+    try {
+      await edgeConfig.set('contactSubmissions', updatedSubmissions);
+      console.log('Edge Config updated successfully');
+    } catch (setError) {
+      console.error('Error updating Edge Config:', setError);
+      throw new Error(`Failed to update Edge Config: ${setError instanceof Error ? setError.message : String(setError)}`);
+    }
 
     return newSubmission;
   } catch (error) {
