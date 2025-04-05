@@ -3,14 +3,9 @@ import { createClient } from '@supabase/supabase-js';
 // Initialize the Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-// Create a client with the anon key for client-side operations
+// Create a single supabase client for the entire app
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-// Create a client with the service role key for server-side operations
-// This has admin privileges and can bypass RLS
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
 // Type for contact form submissions
 export interface ContactSubmission {
@@ -29,9 +24,9 @@ export async function addContactSubmission(submission: Omit<ContactSubmission, '
   try {
     console.log('Adding submission to Supabase:', submission);
 
-    // Insert the submission into the 'contact_submissions' table using the admin client
-    // This bypasses RLS policies
-    const { data, error } = await supabaseAdmin
+    // Insert the submission into the 'contact_submissions' table
+    // RLS should be disabled for this table
+    const { data, error } = await supabase
       .from('contact_submissions')
       .insert([submission])
       .select();
