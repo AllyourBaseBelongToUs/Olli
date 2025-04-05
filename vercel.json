@@ -1,10 +1,10 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "buildCommand": "npm run build",
   "framework": "nextjs",
   "installCommand": "npm install --legacy-peer-deps",
   "regions": ["iad1"],
-  "nodeVersion": "18.x",
   "headers": [
     {
       "source": "/(.*)",
