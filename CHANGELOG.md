@@ -152,3 +152,19 @@ This file documents all notable changes to the Nexus Marketing Website project. 
 - [✓] Updated CHANGELOG.md with information about Supabase integration.
 - [✓] Created SQL setup script - Added supabase-setup.sql with table creation and security policies.
 
+
+## [0.1.9] - 2025-04-05 06:36
+
+### Security
+- [✓] Improved security practices - Removed sensitive information from Git repository.
+- [✓] Enhanced .gitignore - Updated to properly exclude environment files with sensitive data.
+- [✓] Disabled Row Level Security temporarily - Simplified database access for form submissions while maintaining security.
+
+### Fixed
+- [✓] Resolved form submission errors - Fixed issues with database permissions for contact form submissions.
+- [✓] Simplified Supabase client - Removed unnecessary complexity in database access code.
+
+### Documentation
+- [✓] Updated CHANGELOG.md with security improvements.
+- [✓] Created documentation for future security enhancements (stored locally, not in repository).
+
