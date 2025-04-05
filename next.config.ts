@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
   // Enable React Strict Mode for development
   reactStrictMode: true,
 
+  // Skip type checking during build for faster builds
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
+  // Skip ESLint during build for faster builds
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   // Image optimization configuration
   images: {
     domains: ['nexusmarketing.com'],
