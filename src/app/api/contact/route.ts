@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addContactSubmission } from '@/lib/edge-config';
+// Temporarily comment out Edge Config imports until it's set up
+// import { addContactSubmission } from '@/lib/edge-config';
 import { sendEmailNotification } from '@/lib/email';
 import { z } from 'zod';
 
@@ -35,11 +36,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Add the submission to Edge Config
-    const submission = await addContactSubmission(result.data);
+    // Temporarily store submission in memory for testing
+    const submission = {
+      ...result.data,
+      id: `submission_${Date.now()}`,
+      createdAt: new Date().toISOString(),
+    };
 
-    // Send email notification
-    await sendEmailNotification(submission);
+    // Log the submission for debugging
+    console.log('Form submission:', submission);
+
+    // Send email notification (commented out until email service is set up)
+    // await sendEmailNotification(submission);
 
     // Return success response
     return NextResponse.json(
