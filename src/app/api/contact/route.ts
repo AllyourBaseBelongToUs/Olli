@@ -67,7 +67,10 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: 'Form submitted successfully',
-        submission
+        submission,
+        note: process.env.NODE_ENV === 'production' ?
+          'Note: In the current implementation, form submissions are logged but not permanently stored. We are working on implementing the full storage solution.' :
+          undefined
       },
       { status: 200 }
     );
