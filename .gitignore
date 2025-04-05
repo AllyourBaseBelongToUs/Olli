@@ -3,6 +3,8 @@
 
 # Documentation
 CLI-Docs.md
+SUPABASE-RLS-PLAN.md
 
 # VS Code configuration
 .vsconfig
+.env.local
