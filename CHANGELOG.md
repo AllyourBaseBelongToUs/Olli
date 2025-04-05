@@ -14,6 +14,7 @@ This file documents all notable changes to the Nexus Marketing Website project. 
 
 ### Added
 - [✓] Created detailed service pages - Added five new service pages (Brand Strategy, Digital Marketing, Content Creation, Web Development, and Social Media) with comprehensive content, fancy design elements, and consistent styling.
+- [✓] Implemented contact form with Vercel Edge Config - Added a reusable contact form component with validation and integrated it with Vercel Edge Config for storing submissions.
 
 ### Changed
 
@@ -94,4 +95,39 @@ This file documents all notable changes to the Nexus Marketing Website project. 
 
 ### Documentation
 - [✓] Updated CHANGELOG.md with detailed information about the new service pages.
+
+
+## [0.1.6] - 2025-04-05 04:27
+
+### Added
+- [✓] Implemented contact form with form validation - Created a reusable contact form component with client-side validation using React Hook Form and Zod.
+- [✓] Added form submission API - Created a server-side API route to process form submissions with proper error handling.
+- [✓] Integrated Vercel Edge Config - Implemented Edge Config integration for storing form submissions with a fallback for development environments.
+
+### Changed
+- [✓] Updated service pages to include contact forms - Added the contact form component to service pages for better lead generation.
+
+### Documentation
+- [✓] Updated CHANGELOG.md with information about the contact form implementation.
+
+
+## [0.1.7] - 2025-04-05 05:18
+
+### Added
+- [✓] Completed Vercel Edge Config setup - Connected Edge Config to the project and configured it to store form submissions.
+- [✓] Added client-side form components - Created form-components.tsx with React Hook Form integration for better form handling.
+- [✓] Implemented fallback mechanism for Edge Config - Added a mock implementation for development environments without Edge Config.
+
+### Fixed
+- [✓] Fixed client component issues - Added "use client" directive to components using React hooks.
+- [✓] Resolved form submission errors - Fixed API route to properly handle form submissions and store them in Edge Config.
+- [✓] Fixed Edge Config integration - Updated Edge Config structure to include contactSubmissions array.
+
+### Technical
+- [✓] Set up Vercel CLI - Installed and configured Vercel CLI for environment variable management.
+- [✓] Created Edge Config connection - Established connection between the application and Vercel Edge Config.
+- [✓] Added environment variables - Set up .env.local with Edge Config connection string.
+
+### Documentation
+- [✓] Updated CHANGELOG.md with detailed information about Edge Config setup and form handling implementation.
 
