@@ -2,25 +2,21 @@ import React from "react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Section, SectionTitle, SectionSubtitle } from "@/components/ui/section";
-import { FormInput, FormTextarea, FormSelect } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/forms/contact-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us | Nexus Marketing",
+  description: "Get in touch with Nexus Marketing for all your marketing needs. We're here to help you grow your business.",
+};
 
 export default function ContactPage() {
-  // Service options for the form
-  const serviceOptions = [
-    { value: "brand-strategy", label: "Brand Strategy" },
-    { value: "digital-marketing", label: "Digital Marketing" },
-    { value: "content-creation", label: "Content Creation" },
-    { value: "web-development", label: "Web Development" },
-    { value: "social-media", label: "Social Media" },
-    { value: "analytics", label: "Analytics & Insights" },
-    { value: "other", label: "Other" },
-  ];
 
   return (
     <>
       <Navbar />
-      
+
       <main>
         {/* Hero Section */}
         <Section background="gradient" className="py-24 md:py-32">
@@ -31,7 +27,7 @@ export default function ContactPage() {
             </p>
           </div>
         </Section>
-        
+
         {/* Contact Form Section */}
         <Section>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -41,7 +37,7 @@ export default function ContactPage() {
               <p className="text-muted-foreground mb-8">
                 Have a question or ready to start a project? Fill out the form and we'll get back to you within 24 hours.
               </p>
-              
+
               <div className="space-y-6 mb-8">
                 <div className="flex items-start">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-1">
@@ -54,7 +50,7 @@ export default function ContactPage() {
                     <p className="text-muted-foreground">(123) 456-7890</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary h-5 w-5">
@@ -67,7 +63,7 @@ export default function ContactPage() {
                     <p className="text-muted-foreground">info@nexusmarketing.com</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary h-5 w-5">
@@ -82,7 +78,7 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
-              
+
               <div>
                 <h3 className="font-semibold mb-4">Follow Us</h3>
                 <div className="flex space-x-4">
@@ -108,73 +104,14 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Form */}
             <div className="card p-6 md:p-8 animate-slide-in-right">
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormInput
-                    id="first-name"
-                    label="First Name"
-                    placeholder="John"
-                    required
-                  />
-                  <FormInput
-                    id="last-name"
-                    label="Last Name"
-                    placeholder="Doe"
-                    required
-                  />
-                </div>
-                
-                <FormInput
-                  id="email"
-                  label="Email"
-                  type="email"
-                  placeholder="john@example.com"
-                  required
-                />
-                
-                <FormInput
-                  id="company"
-                  label="Company"
-                  placeholder="Your Company"
-                />
-                
-                <FormSelect
-                  id="service"
-                  label="Service Interested In"
-                  options={serviceOptions}
-                  required
-                />
-                
-                <FormTextarea
-                  id="message"
-                  label="Message"
-                  placeholder="Tell us about your project or inquiry..."
-                  required
-                />
-                
-                <div className="flex items-start">
-                  <input
-                    type="checkbox"
-                    id="consent"
-                    className="mt-1 mr-2"
-                    required
-                  />
-                  <label htmlFor="consent" className="text-sm text-muted-foreground">
-                    I agree to the <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a> and consent to being contacted regarding my inquiry.
-                  </label>
-                </div>
-                
-                <Button type="submit" variant="primary" size="lg" className="w-full">
-                  Send Message
-                </Button>
-              </form>
+              <ContactForm defaultService="digital-marketing" />
             </div>
           </div>
         </Section>
-        
+
         {/* Map Section */}
         <Section background="muted">
           <SectionTitle centered>Visit Our Office</SectionTitle>
@@ -185,14 +122,14 @@ export default function ContactPage() {
             </div>
           </div>
         </Section>
-        
+
         {/* FAQ Section */}
         <Section>
           <SectionTitle centered>Frequently Asked Questions</SectionTitle>
           <SectionSubtitle centered>
             Have questions? We've got answers. If you don't see what you're looking for, feel free to contact us.
           </SectionSubtitle>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             <div className="card p-6">
               <h3 className="text-xl font-semibold mb-3">How soon can you start on my project?</h3>
@@ -200,21 +137,21 @@ export default function ContactPage() {
                 We typically begin new projects within 1-2 weeks of finalizing the agreement. For urgent needs, we may be able to accommodate faster timelines.
               </p>
             </div>
-            
+
             <div className="card p-6">
               <h3 className="text-xl font-semibold mb-3">What is your pricing structure?</h3>
               <p className="text-muted-foreground">
                 Our pricing varies based on project scope, complexity, and timeline. We offer both project-based and retainer options to suit different needs.
               </p>
             </div>
-            
+
             <div className="card p-6">
               <h3 className="text-xl font-semibold mb-3">Do you work with small businesses?</h3>
               <p className="text-muted-foreground">
                 Absolutely! We work with businesses of all sizes, from startups to established enterprises, and can tailor our services to fit your budget.
               </p>
             </div>
-            
+
             <div className="card p-6">
               <h3 className="text-xl font-semibold mb-3">How do you measure results?</h3>
               <p className="text-muted-foreground">
@@ -224,7 +161,7 @@ export default function ContactPage() {
           </div>
         </Section>
       </main>
-      
+
       <Footer />
     </>
   );
